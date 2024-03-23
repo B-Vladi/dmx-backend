@@ -17,6 +17,20 @@ export default class SerialController {
     description: 'Port info list',
   })
   getDevices() {
-    return this.serial.list()
+    if (process.env.EMULATION === '1') {
+      return [
+        {
+          "path": "COM13",
+          "manufacturer": "FTDI",
+          "serialNumber": "A16B3ZTN",
+          "pnpId": "FTDIBUS\\VID_0403+PID_6001+A16B3ZTNA\\0000",
+          "friendlyName": "USB Serial Port (COM13)",
+          "vendorId": "0403",
+          "productId": "6001"
+        }
+      ];
+    } else {
+      return this.serial.list();
+    }
   }
 }
