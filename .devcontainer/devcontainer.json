@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
-	"name": "Ubuntu",
+	"name": "DMX",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
@@ -16,19 +16,32 @@
 			]
 		}
 	},
-	"remoteEnv": {
-		"NODE_OPTIONS":"--loader ts-node/esm --no-warnings"  // only for backend
-	},
-
-//docker run -p 27017:27017 --name some-mongo -v ./datadir:/data/db -d mongo
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [
+		80,
+		8000,
+		8081,
+		8087,
+	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "bash .devcontainer/post-create.sh",
+	"postStartCommand": "docker start some-mongo",
+	"portsAttributes": {
+		"80": {
+			"label": "frontend"
+		},
+		"8000": {
+			"label": "Swagger UI"
+		},
+		"8081": {
+			"label": "backend-ws"
+		},
+		"8087": {
+			"label": "backend-api"
+		}
+	},
 
 	// Configure tool-specific properties.
 	// "customizations": {},

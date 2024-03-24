@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "nest build",
-    "dev": "nest start -e ts-node-esm",
+    "dev": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' nest start",
     "dev:debug": "npm run dev -- --debug --watch",
     "dev:format": "npm run test:lint -- --fix",
     "dev:watch": "npm run dev -- --watch",
